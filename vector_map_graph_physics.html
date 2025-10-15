@@ -1,0 +1,149 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 100%;
+                 height: 900px;
+                 background-color: #111;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#1f77b4", "font": {"color": "#eee"}, "id": 0, "label": "Top 10 Fintech software development partners for success in 2025", "shape": "dot", "size": 32, "title": "\u003cb\u003eTop 10 Fintech software development partners for success in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/blockchain/fintech-software-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 1, "label": "Why AI in Fintech is the real game-changer for businesses", "shape": "dot", "size": 23, "title": "\u003cb\u003eWhy AI in Fintech is the real game-changer for businesses\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/ai-in-fintech/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 2, "label": "Top 6 best fintech apps businesses must check out in 2025", "shape": "dot", "size": 36, "title": "\u003cb\u003eTop 6 best fintech apps businesses must check out in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/best-fintech-apps/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 3, "label": "Top BNPL app development companies in 2025: Expert picks \u0026 Guide", "shape": "dot", "size": 23, "title": "\u003cb\u003eTop BNPL app development companies in 2025: Expert picks \u0026 Guide\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/bnpl-app-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 4, "label": "Cost of building a BNPL app like Afterpay, Klarna, or Affirm in 2025", "shape": "dot", "size": 29, "title": "\u003cb\u003eCost of building a BNPL app like Afterpay, Klarna, or Affirm in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/bnpl-app-development-cost/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 5, "label": "10+ Best DeFi development companies in 2025", "shape": "dot", "size": 26, "title": "\u003cb\u003e10+ Best DeFi development companies in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/defi-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 6, "label": "Maximize DeFi passive income: Lending, staking, or yield farming?", "shape": "dot", "size": 26, "title": "\u003cb\u003eMaximize DeFi passive income: Lending, staking, or yield farming?\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/defi-passive-income/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 7, "label": "Explore 15+ largest DeFi platforms in 2025", "shape": "dot", "size": 32, "title": "\u003cb\u003eExplore 15+ largest DeFi platforms in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/defi-platforms/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 8, "label": "Best practices to mitigate Defi risks \u2013 A developer\u0027s handbook\u00a0\u00a0", "shape": "dot", "size": 23, "title": "\u003cb\u003eBest practices to mitigate Defi risks \u2013 A developer\u0027s handbook\u00a0\u00a0\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/defi-risk/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 9, "label": "Top 10 defi use cases that solve startups\u2019 problems in Finance", "shape": "dot", "size": 23, "title": "\u003cb\u003eTop 10 defi use cases that solve startups\u2019 problems in Finance\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/defi-use-case/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 10, "label": "Top 12 E-wallet app development companies to watch in 2025\u00a0", "shape": "dot", "size": 20, "title": "\u003cb\u003eTop 12 E-wallet app development companies to watch in 2025\u00a0\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/e-wallet-app-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 11, "label": "E-wallet app development cost estimates for 2025 \u00a0", "shape": "dot", "size": 26, "title": "\u003cb\u003eE-wallet app development cost estimates for 2025 \u00a0\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/e-wallet-app-development-cost/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 12, "label": "13+ Best fintech app development companies in 2025", "shape": "dot", "size": 36, "title": "\u003cb\u003e13+ Best fintech app development companies in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/fintech-app-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 13, "label": "How much does it cost to develop a Fintech app in 2025?", "shape": "dot", "size": 36, "title": "\u003cb\u003eHow much does it cost to develop a Fintech app in 2025?\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/fintech-app-development-cost/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 14, "label": "Discover 15+ best fintech app security solutions in 2025", "shape": "dot", "size": 32, "title": "\u003cb\u003eDiscover 15+ best fintech app security solutions in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/fintech-app-security/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 15, "label": "Fintech super apps: Exploring features, benefits, and trends", "shape": "dot", "size": 29, "title": "\u003cb\u003eFintech super apps: Exploring features, benefits, and trends\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/fintech-super-apps/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 16, "label": "12 Emerging Fintech Trends in 2025 and Beyond (with Statistic)", "shape": "dot", "size": 29, "title": "\u003cb\u003e12 Emerging Fintech Trends in 2025 and Beyond (with Statistic)\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/fintech-trends/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 17, "label": "How to hire fintech app developers in 7 steps", "shape": "dot", "size": 29, "title": "\u003cb\u003eHow to hire fintech app developers in 7 steps\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/hire-fintech-app-developers/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 18, "label": "How do BNPL companies make money? (For fintech founders)", "shape": "dot", "size": 23, "title": "\u003cb\u003eHow do BNPL companies make money? (For fintech founders)\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/how-do-bnpl-make-money/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 19, "label": "How to build a P2P payment app: A step-by-step guide", "shape": "dot", "size": 26, "title": "\u003cb\u003eHow to build a P2P payment app: A step-by-step guide\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/how-to-build-a-p2p-payment-app/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 20, "label": "How to create a fintech app in 6 easy steps", "shape": "dot", "size": 36, "title": "\u003cb\u003eHow to create a fintech app in 6 easy steps\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/how-to-create-a-fintech-app/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 21, "label": "How to start a Neobank app in 6 easy steps", "shape": "dot", "size": 35, "title": "\u003cb\u003eHow to start a Neobank app in 6 easy steps\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/how-to-start-a-neobank/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 22, "label": "Loan lending app development cost in 2025: From MVP to enterprise", "shape": "dot", "size": 26, "title": "\u003cb\u003eLoan lending app development cost in 2025: From MVP to enterprise\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/loan-lending-app-development-cost/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 23, "label": "10 best Neobank app development companies to watch in 2025", "shape": "dot", "size": 23, "title": "\u003cb\u003e10 best Neobank app development companies to watch in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/neobank-app-development-companies/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 24, "label": "Top 11 Neobanks for businesses in 2025", "shape": "dot", "size": 26, "title": "\u003cb\u003eTop 11 Neobanks for businesses in 2025\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/neobank-for-business/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 25, "label": "11 Problems in fintech app you should watch out", "shape": "dot", "size": 36, "title": "\u003cb\u003e11 Problems in fintech app you should watch out\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/problems-in-fintech-apps/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 26, "label": "The 13 most trusted trading software development companies", "shape": "dot", "size": 17, "title": "\u003cb\u003eThe 13 most trusted trading software development companies\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/trading-software-development-company/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 27, "label": "What is a fintech application? The complete guide", "shape": "dot", "size": 36, "title": "\u003cb\u003eWhat is a fintech application? The complete guide\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/what-is-a-fintech-application/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 28, "label": "What is a Neobank? A complete guide to digital-only banking\u00a0", "shape": "dot", "size": 29, "title": "\u003cb\u003eWhat is a Neobank? A complete guide to digital-only banking\u00a0\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/what-is-a-neobank/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}, {"color": "#1f77b4", "font": {"color": "#eee"}, "id": 29, "label": "6 robust white label Neobank solutions that reinvent digital banking", "shape": "dot", "size": 23, "title": "\u003cb\u003e6 robust white label Neobank solutions that reinvent digital banking\u003c/b\u003e\u003cbr/\u003ehttps://synodus.com/blog/fintech/white-label-neobank/\u003cbr/\u003ePillar: Unassigned", "x": 223.08287753261402, "y": -759.9827916437329}]);
+                  edges = new vis.DataSet([{"color": "#ffd166", "from": 10, "to": 11, "width": 4.5}, {"color": "#ff4d4f", "from": 4, "to": 11, "width": 4.0}, {"color": "#ffd166", "from": 4, "to": 18, "width": 4.5}, {"color": "#ff4d4f", "from": 4, "to": 22, "width": 4.0}, {"color": "#ffd166", "from": 3, "to": 4, "width": 4.5}, {"color": "#ffd166", "from": 6, "to": 9, "width": 4.5}, {"color": "#ff4d4f", "from": 6, "to": 18, "width": 4.0}, {"color": "#ffd166", "from": 6, "to": 7, "width": 4.5}, {"color": "#ffd166", "from": 21, "to": 23, "width": 4.5}, {"color": "#ff4d4f", "from": 5, "to": 6, "width": 4.0}, {"color": "#ffd166", "from": 5, "to": 7, "width": 4.5}, {"color": "#ff4d4f", "from": 19, "to": 21, "width": 4.0}, {"color": "#ff4d4f", "from": 21, "to": 29, "width": 4.0}, {"color": "#ff4d4f", "from": 21, "to": 28, "width": 4.0}, {"color": "#ffd166", "from": 24, "to": 28, "width": 4.5}, {"color": "#ffd166", "from": 24, "to": 29, "width": 4.5}, {"color": "#ff4d4f", "from": 7, "to": 14, "width": 4.0}, {"color": "#ff4d4f", "from": 7, "to": 12, "width": 4.0}, {"color": "#ff4d4f", "from": 2, "to": 7, "width": 4.0}, {"color": "#ff4d4f", "from": 2, "to": 27, "width": 4.0}, {"color": "#ffd166", "from": 2, "to": 15, "width": 4.5}, {"color": "#ff4d4f", "from": 2, "to": 25, "width": 4.0}, {"color": "#ffd166", "from": 2, "to": 20, "width": 4.5}, {"color": "#ff4d4f", "from": 2, "to": 14, "width": 4.0}, {"color": "#ff4d4f", "from": 1, "to": 16, "width": 4.0}, {"color": "#ff4d4f", "from": 14, "to": 27, "width": 4.0}, {"color": "#ffd166", "from": 12, "to": 14, "width": 4.5}, {"color": "#ffd166", "from": 14, "to": 25, "width": 4.5}, {"color": "#ff4d4f", "from": 14, "to": 17, "width": 4.0}, {"color": "#ffd166", "from": 12, "to": 19, "width": 4.5}, {"color": "#ff4d4f", "from": 12, "to": 27, "width": 4.0}, {"color": "#ff4d4f", "from": 12, "to": 13, "width": 4.0}, {"color": "#ffd166", "from": 8, "to": 9, "width": 4.5}, {"color": "#ffd166", "from": 20, "to": 27, "width": 4.5}, {"color": "#ffd166", "from": 13, "to": 20, "width": 4.5}, {"color": "#ff4d4f", "from": 12, "to": 20, "width": 4.0}, {"color": "#ffd166", "from": 17, "to": 20, "width": 4.5}, {"color": "#ff4d4f", "from": 20, "to": 21, "width": 4.0}, {"color": "#ff4d4f", "from": 19, "to": 20, "width": 4.0}, {"color": "#ff4d4f", "from": 5, "to": 8, "width": 4.0}, {"color": "#ffd166", "from": 7, "to": 8, "width": 4.5}, {"color": "#ffd166", "from": 2, "to": 16, "width": 4.5}, {"color": "#ff4d4f", "from": 15, "to": 16, "width": 4.0}, {"color": "#ff4d4f", "from": 16, "to": 27, "width": 4.0}, {"color": "#ffd166", "from": 12, "to": 17, "width": 4.5}, {"color": "#ff4d4f", "from": 13, "to": 17, "width": 4.0}, {"color": "#ff4d4f", "from": 17, "to": 27, "width": 4.0}, {"color": "#ffd166", "from": 20, "to": 25, "width": 4.5}, {"color": "#ff4d4f", "from": 0, "to": 15, "width": 4.0}, {"color": "#ff4d4f", "from": 12, "to": 15, "width": 4.0}, {"color": "#ff4d4f", "from": 27, "to": 28, "width": 4.0}, {"color": "#ff4d4f", "from": 11, "to": 13, "width": 4.0}, {"color": "#ff4d4f", "from": 13, "to": 21, "width": 4.0}, {"color": "#ff4d4f", "from": 4, "to": 13, "width": 4.0}, {"color": "#ff4d4f", "from": 13, "to": 25, "width": 4.0}, {"color": "#f5f5f5", "from": 0, "to": 12, "width": 1.4}, {"color": "#f5f5f5", "from": 0, "to": 2, "width": 1.4}, {"color": "#f5f5f5", "from": 1, "to": 25, "width": 1.4}, {"color": "#f5f5f5", "from": 1, "to": 2, "width": 1.4}, {"color": "#f5f5f5", "from": 2, "to": 12, "width": 1.4}, {"color": "#f5f5f5", "from": 0, "to": 3, "width": 1.4}, {"color": "#f5f5f5", "from": 5, "to": 9, "width": 1.4}, {"color": "#f5f5f5", "from": 10, "to": 12, "width": 1.4}, {"color": "#f5f5f5", "from": 11, "to": 22, "width": 1.4}, {"color": "#f5f5f5", "from": 2, "to": 13, "width": 1.4}, {"color": "#f5f5f5", "from": 15, "to": 20, "width": 1.4}, {"color": "#f5f5f5", "from": 0, "to": 16, "width": 1.4}, {"color": "#f5f5f5", "from": 3, "to": 18, "width": 1.4}, {"color": "#f5f5f5", "from": 19, "to": 25, "width": 1.4}, {"color": "#f5f5f5", "from": 21, "to": 24, "width": 1.4}, {"color": "#f5f5f5", "from": 12, "to": 22, "width": 1.4}, {"color": "#f5f5f5", "from": 13, "to": 22, "width": 1.4}, {"color": "#f5f5f5", "from": 23, "to": 24, "width": 1.4}, {"color": "#f5f5f5", "from": 25, "to": 27, "width": 1.4}, {"color": "#f5f5f5", "from": 12, "to": 25, "width": 1.4}, {"color": "#f5f5f5", "from": 0, "to": 26, "width": 1.4}, {"color": "#f5f5f5", "from": 23, "to": 28, "width": 1.4}, {"color": "#f5f5f5", "from": 28, "to": 29, "width": 1.4}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {"interaction": {"navigationButtons": true, "keyboard": true, "hover": true}, "nodes": {"shape": "dot", "borderWidth": 1, "font": {"size": 18, "color": "#ffffff", "strokeWidth": 6, "strokeColor": "#111111"}}, "edges": {"smooth": {"enabled": false}, "color": {"inherit": false}}, "physics": {"enabled": true, "stabilization": {"enabled": true, "iterations": 1200, "updateInterval": 25}, "barnesHut": {"gravitationalConstant": -26000, "centralGravity": 0.05, "springLength": 210, "springConstant": 0.03, "damping": 0.09, "avoidOverlap": 0.8}}};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    
+<div id="legend" style="position:fixed;top:16px;right:16px;z-index:9999;background:#222;color:#eee;
+ padding:12px 14px;border-radius:10px;font-family:Inter,Arial,sans-serif;font-size:13px;box-shadow:0 6px 20px rgba(0,0,0,.35);">
+  <div style="font-weight:600;margin-bottom:8px">Legend — Pillars</div>
+  <div style="display:flex;align-items:center;margin:4px 0;"><span style="display:inline-block;width:14px;height:14px;background:#1f77b4;margin-right:8px;border-radius:2px"></span><span>Unassigned</span></div>
+  <hr style="border-color:#444;margin:8px 0">
+  <div>Edges:
+    <span style="color:#ff4d4f">red</span> = internal,&nbsp;
+    <span style="color:#f5f5f5">white</span> = k-NN,&nbsp;
+    <span style="color:#ffd166">yellow</span> = both
+  </div>
+  <button onclick="toggleLabels()" style="margin-top:8px;background:#444;color:#eee;border:0;border-radius:8px;padding:6px 10px;cursor:pointer">Toggle labels</button>
+</div>
+<script>
+function toggleLabels() {
+  var nodes = document.querySelectorAll('.vis-label');
+  for (var i = 0; i < nodes.length; i++) {
+    nodes[i].style.display = (nodes[i].style.display === 'none') ? '' : 'none';
+  }
+}
+</script>
+
+</body>
+</html>
